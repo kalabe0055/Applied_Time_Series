@@ -1,0 +1,253 @@
+---
+title: "HW-1b"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+#Question 1
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+plot(bit_xts)
+```
+
+#Question 2
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+acf(bit_xts)
+```
+The Corellogram above is shown to have signficant auto correlation at all Lag points.
+
+#Question 3
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+plot(bit_log)
+```
+#Question 4
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+plot(bit_log)
+acf(bit_log, na.action = na.omit)
+```
+No significant auto Correlation occurs in the acf of the log returns of bit coins above.
+
+#Question 5a
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+count <- 0
+start <- start(bit_xts)
+end <- end(bit_xts)
+
+while(start <= end){
+  if(coredata(bit_xts[start]) < coredata(bit_xts[start+1])){
+    count = count + 1
+  }
+  start = start + 1
+}
+count
+length(bit_xts)
+count/length(bit_xts)
+```
+
+#Question 5b
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+to.period(bit_xts,'months')
+```
+
+#Question 5c
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+bit_xts['2014-12-10/2014-12-31']
+```
+
+#Question 5d
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+bit_xts['2015-04-24/2015-04-30']
+```
+#Question 5e
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+period.apply(bit_xts, INDEX=endpoints(bit_xts,'years'),FUN=max) #highest is last obs
+```
+Highest is located above.
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+period.apply(bit_xts, INDEX=endpoints(bit_xts,'years'),FUN=min) #lowest is 2015-12-31
+```
+Lowested is located above
+
+#Question 5f
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+library(roll)
+plot(roll_sd(bit_xts, width = 10))
+```
+
+
+#Question 5g
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+plot(roll_sd(bit_log, width = 10))
+```
+
+#Question 5h
+```{r}
+ibm_stock <- read.csv("/Users/Kalabe/R2-ibm.csv")
+ibm$Date <- as.Date(ibm$Date, #our dataset
+                     format="%d-%b-%y")
+ibm_ts <- ts(rev(ibm$Close), #rev( ) function reverses the vector. It's needed here because the first datapoint is for the last observation
+             start = tail(ibm$Date,1),
+             end = head(ibm$Date,1))
+library(zoo)
+bit_zoo <- zoo(ibm$Close,order.by = ibm$Date)
+plot(bit_zoo)
+library(xts)
+rm(list=setdiff(ls(),"bit_zoo"))
+bit_xts <- as.xts(bit_zoo)
+bit_log <- log(lag(bit_xts)) - log(bit_xts)
+period.apply(bit_log, INDEX=endpoints(bit_log,'quarters'),FUN=sum)
+```
+
+
+
